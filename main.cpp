@@ -69,6 +69,20 @@ public:
         current->isEndOfWord = true;
     }
 
+    // Search for a word
+    bool search(const string& key) {
+        TrieNode* current = root;
+
+        for (char c : key) {
+            int index = c - 'a';
+            if (!current->children[index])
+                return false;
+            current = current->children[index];
+        }
+
+        return current->isEndOfWord;
+    }
+
     // Delete a word
     void remove(const string& key) {
         deleteHelper(root, key, 0);
