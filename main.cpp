@@ -55,6 +55,20 @@ private:
 public:
     Trie() { root = new TrieNode(); }
 
+    // Insert a word into the trie
+    void insert(const string& key) {
+        TrieNode* current = root;
+
+        for (char c : key) {
+            int index = c - 'a';
+            if (!current->children[index])
+                current->children[index] = new TrieNode();
+            current = current->children[index];
+        }
+
+        current->isEndOfWord = true;
+    }
+
     // Delete a word
     void remove(const string& key) {
         deleteHelper(root, key, 0);
