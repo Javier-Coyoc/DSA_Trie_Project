@@ -90,6 +90,19 @@ public:
 };
 
 int main() {
+    Trie trie;
+
+    trie.insert("hello");
+    trie.insert("help");
+    trie.insert("hero");
+
+    cout << trie.search("hello") << endl; 
+    cout << trie.search("hel") << endl;  
+
+    trie.remove("hello");
+
+    cout << trie.search("hello") << endl;
+    cout << trie.search("help") << endl;
 
     return 0;
 }
