@@ -62,7 +62,7 @@ public:
         for (char c : key) {
             int index = c - 'a';
             if (!current->children[index])
-                current->children[index] = new TrieNode();
+            current->children[index] = new TrieNode();
             current = current->children[index];
         }
 
@@ -97,7 +97,7 @@ int main() {
     trie.insert("hero");
 
     cout << trie.search("hello") << endl; 
-    cout << trie.search("hel") << endl;  
+    cout << trie.search("hero") << endl;  
 
     trie.remove("hello");
 
