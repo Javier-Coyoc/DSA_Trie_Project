@@ -1,13 +1,16 @@
 #include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
+//Trie Node
 class TrieNode {
 public:
     TrieNode* children[26];
-    bool isEndOfWord;
+    bool isEnd;
 
     TrieNode() {
-        isEndOfWord = false;
+        isEnd = false;
         for (int i = 0; i < 26; i++)
             children[i] = nullptr;
     }
@@ -17,32 +20,25 @@ class Trie {
 private:
     TrieNode* root;
 
-    // Helper function for deletion
-    bool deleteHelper(TrieNode* node, const string& key, int depth) {
-        if (!node)
-            return false;
+      // Recursive delete helper
+    bool deleteHelper(TrieNode* node, const string& word, int depth) {
+        if (!node) return false;
 
-        // Base case: end of word
-        if (depth == key.size()) {
-            if (!node->isEndOfWord)
-                return false;  // word not found
-
-            node->isEndOfWord = false;
-
-            // If node has no children, it can be deleted
+        if (depth == word.size()) {
+            if (!node->isEnd) return false;  
+            node->isEnd = false;
             return isEmpty(node);
         }
 
-        int index = key[depth] - 'a';
-        if (!deleteHelper(node->children[index], key, depth + 1))
+        int i = word[depth] - 'a';
+
+        if (!deleteHelper(node->children[i], word, depth + 1))
             return false;
 
-        // Delete the child node
-        delete node->children[index];
-        node->children[index] = nullptr;
+        delete node->children[i];
+        node->children[i] = nullptr;
 
-        // Return true if no children & not end of another word
-        return !node->isEndOfWord && isEmpty(node);
+        return (!node->isEnd && isEmpty(node));
     }
 
     bool isEmpty(TrieNode* node) {
@@ -55,9 +51,9 @@ private:
 public:
     Trie() { root = new TrieNode(); }
 
-    // Delete a word
-    void remove(const string& key) {
-        deleteHelper(root, key, 0);
+    //Remove - Calls the delete helper function to delete a characters in the trie
+    void remove(const string& word) {
+        deleteHelper(root, word, 0);
     }
 };
 
