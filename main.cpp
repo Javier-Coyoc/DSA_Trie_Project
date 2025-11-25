@@ -62,7 +62,7 @@ public:
         for (char c : key) {
             int index = c - 'a';
             if (!current->children[index])
-            current->children[index] = new TrieNode();
+                current->children[index] = new TrieNode();
             current = current->children[index];
         }
 
