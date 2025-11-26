@@ -16,11 +16,12 @@ public:
     }
 };
 
+//Trie Class
 class Trie {
 private:
     TrieNode* root;
 
-      // Recursive delete helper
+    // Recursive delete helper
     bool deleteHelper(TrieNode* node, const string& word, int depth) {
         if (!node) return false;
 
@@ -41,9 +42,10 @@ private:
         return (!node->isEndOfWord && isEmpty(node));
     }
 
+    // Check if node has zero children
     bool isEmpty(TrieNode* node) {
         for (int i = 0; i < 26; i++)
-            if (node->children[i] != nullptr)
+            if (node->children[i])
                 return false;
         return true;
     }
