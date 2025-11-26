@@ -7,10 +7,10 @@ using namespace std;
 class TrieNode {
 public:
     TrieNode* children[26];
-    bool isEnd;
+    bool isEndOfWord;
 
     TrieNode() {
-        isEnd = false;
+        isEndOfWord = false;
         for (int i = 0; i < 26; i++)
             children[i] = nullptr;
     }
@@ -25,8 +25,8 @@ private:
         if (!node) return false;
 
         if (depth == word.size()) {
-            if (!node->isEnd) return false;  
-            node->isEnd = false;
+            if (!node->isEndOfWord) return false;  
+            node->isEndOfWord = false;
             return isEmpty(node);
         }
 
@@ -38,7 +38,7 @@ private:
         delete node->children[i];
         node->children[i] = nullptr;
 
-        return (!node->isEnd && isEmpty(node));
+        return (!node->isEndOfWord && isEmpty(node));
     }
 
     bool isEmpty(TrieNode* node) {
