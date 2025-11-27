@@ -111,8 +111,6 @@ public:
 
 //CLI interface
 int main() {
-<<<<<<< HEAD
-=======
     Trie trie;
 
     //Dataset filled with Programming keywords
@@ -138,7 +136,6 @@ int main() {
         cout << "5. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
->>>>>>> feature-testing
 
         switch (choice) {
         case 1:
