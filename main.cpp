@@ -75,6 +75,17 @@ public:
         cur->isEndOfWord = true;
     }
 
+    // Search a full word
+    bool search(const string& word) {
+        TrieNode* cur = root;
+        for (char c : word) {
+            int i = c - 'a';
+            if (!cur->children[i]) return false;
+            cur = cur->children[i];
+        }
+        return cur->isEndOfWord;
+    }
+
     //Remove - Calls the delete helper function to delete a characters in the trie
     void remove(const string& word) {
         deleteHelper(root, word, 0);
