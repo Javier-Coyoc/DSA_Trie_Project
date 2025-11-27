@@ -89,20 +89,72 @@ public:
     }
 };
 
+//CLI interface
 int main() {
     Trie trie;
 
-    trie.insert("hello");
-    trie.insert("help");
-    trie.insert("hero");
+    //Dataset filled with Programming keywords
+    vector<string> keywords = {
+        "int","float","double","char","class","struct",
+        "switch","case","for","while","do","break","continue",
+        "return","public","private","protected","this","static",
+        "new","delete","include","using","namespace",
+        "void","bool","true","false","default"
+    };
 
-    cout << trie.search("hello") << endl; 
-    cout << trie.search("hel") << endl;  
+    for (string kw : keywords) trie.insert(kw);
 
-    trie.remove("hello");
+    int choice;
+    string input;
 
-    cout << trie.search("hello") << endl;
-    cout << trie.search("help") << endl;
+    while (true) {
+        cout << "\n---- TRIE PREFIX ANALYTICS ----\n";
+        cout << "1. Insert word\n";
+        cout << "2. Search word\n";
+        cout << "3. Delete word\n";
+        cout << "4. Prefix Search\n";
+        cout << "5. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
 
-    return 0;
+        switch (choice) {
+        case 1:
+            cout << "Enter word to insert: ";
+            cin >> input;
+            trie.insert(input);
+            cout << "Inserted.\n";
+            break;
+
+        case 2:
+            cout << "Enter word to search: ";
+            cin >> input;
+            cout << (trie.search(input) ? "FOUND\n" : "NOT FOUND\n");
+            break;
+
+        case 3:
+            cout << "Enter word to delete: ";
+            cin >> input;
+            trie.remove(input);
+            cout << "Deleted (if existed).\n";
+            break;
+
+        case 4:
+            cout << "Enter prefix: ";
+            cin >> input;
+            {
+                vector<string> results = trie.prefixSearch(input);
+
+                cout << "\nMatches: " << results.size() << "\n";
+                for (const string& w : results)
+                    cout << " - " << w << "\n";
+            }
+            break;
+
+        case 5:
+            return 0;
+
+        default:
+            cout << "Invalid option.\n";
+        }
+    }
 }
