@@ -50,6 +50,16 @@ private:
         return (!node->isEndOfWord && isEmpty(node));
     }
 
+    // collect all words starting from a node
+    void collect(TrieNode* node, string prefix, vector<string>& out) {
+        if (!node) return;
+        if (node->isEndOfWord) out.push_back(prefix);
+
+        for (int i = 0; i < 26; i++)
+            if (node->children[i])
+                collect(node->children[i], prefix + char(i + 'a'), out);
+    }
+
 public:
     Trie() { root = new TrieNode(); }
 
