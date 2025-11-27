@@ -90,6 +90,23 @@ public:
     void remove(const string& word) {
         deleteHelper(root, word, 0);
     }
+
+    //Prefix search - Searches through the trie to see if the prefix inserted matches any of the 
+    //word's prefixes inside the trie
+    vector<string> prefixSearch(const string& prefix) {
+        TrieNode* cur = root;
+
+        for (char c : prefix) {
+            int i = c - 'a';
+            if (!cur->children[i])
+                return {}; 
+            cur = cur->children[i];
+        }
+
+        vector<string> results;
+        collect(cur, prefix, results);
+        return results;
+    }
 };
 
 int main() {
