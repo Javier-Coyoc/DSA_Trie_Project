@@ -63,6 +63,18 @@ private:
 public:
     Trie() { root = new TrieNode(); }
 
+    //Inserts a string individually by each of its characters into the trie
+    void insert(const string& word) {
+        TrieNode* cur = root;
+        for (char c : word) {
+            int i = c - 'a';
+            if (!cur->children[i])
+                cur->children[i] = new TrieNode();
+            cur = cur->children[i];
+        }
+        cur->isEndOfWord = true;
+    }
+
     //Remove - Calls the delete helper function to delete a characters in the trie
     void remove(const string& word) {
         deleteHelper(root, word, 0);
